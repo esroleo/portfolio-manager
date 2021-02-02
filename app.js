@@ -101,19 +101,64 @@ personObj.occupation = 'Developer';
 */
 
 
+
+
+
 // *** Code HTML Generator  *** //
-const fs = require('fs');
-const generatePage =  require('./src/page-template.js');
+// *** Import library and modules *** //
+const inquirer = require('inquirer');
+// Check that inquirer library is working.
+//console.log(inquirer);
+
+const promptUser = () => {
+  return inquirer
+  .prompt([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'What is your name?'
+    }
+  ])
+}; 
+
+promptUser().then(answers => console.log(answers));
+
+
+  
+
+
+// const fs = require('fs');
+// const generatePage =  require('./src/page-template.js');
+
+// const pageHTML = generatePage(userName, github);
+
+// // *** FS system *** //
+// // writeFileSync is asynchronous, no need to wait for the file to complete to run more code
+// fs.writeFileSync('index.html', pageHTML , err => {
+//   if (err) throw err;
+
+//   console.log('Portfolio complete! Check out index.html to see the output!');
+// });
+
+
+
+
+
+
+
+
+
 
 // slice(2...) - means start at index of 3. node app args(2) ++
-const profileDataArgs = process.argv.slice(2, process.argv.length);
+// process.argv will be replaced with  inquirer
+//const profileDataArgs = process.argv.slice(2, process.argv.length);
 
 // Assign input to variables - Traditional Way //
 // const userName = profileDataArgs[0];
 // const github = profileDataArgs[1];
 
 // *** ES6 feature - destructuring assignment *** //
-const [userName, github] = profileDataArgs
+//const [userName, github] = profileDataArgs
 
 
 //const generatePage = () => 'Name: Jane, Github: janehub';
@@ -152,10 +197,3 @@ const [userName, github] = profileDataArgs
 //console.log(generatePage(userName, github));
 
 
-// *** FS system *** //
-// writeFileSync is asynchronous, no need to wait for the file to complete to run more code
-fs.writeFileSync('index.html', generatePage(userName, github), err => {
-  if (err) throw err;
-
-  console.log('Portfolio complete! Check out index.html to see the output!');
-});
