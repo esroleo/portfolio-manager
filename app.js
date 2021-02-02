@@ -20,7 +20,7 @@
 
 // Removed the firts two entries of process.argv.
 // Creates also an array 
-const profileDataArgs = process.argv.slice(2, process.argv.length);
+//const profileDataArgs = process.argv.slice(2, process.argv.length);
 // Notice the lack of parentheses around the `profileDataArr` parameter?
 // const printProfileData = profileDataArr => {
 //     for (let i = 0; i < profileDataArr.length; i++) {
@@ -28,24 +28,24 @@ const profileDataArgs = process.argv.slice(2, process.argv.length);
 //     }
 //   };
 // using foreach
-const printProfileData = profileDataArr => {
-    // This...
-    for (let i = 0; i < profileDataArr.length; i += 1) {
-      console.log(profileDataArr[i]);
-    }
+// const printProfileData = profileDataArr => {
+//     // This...
+//     for (let i = 0; i < profileDataArr.length; i += 1) {
+//       console.log(profileDataArr[i]);
+//     }
   
-    console.log('================');
+//     console.log('================');
   
-    // Is the same as this...
-    // profileDataArr.forEach((profileItem) => {
-    //   console.log(profileItem)
-    // });
+//     // Is the same as this...
+//     // profileDataArr.forEach((profileItem) => {
+//     //   console.log(profileItem)
+//     // });
 
-    // "Shorthand" //
-    profileDataArr.forEach(profileItem => console.log(profileItem));
-  };
+//     // "Shorthand" //
+//     profileDataArr.forEach(profileItem => console.log(profileItem));
+//   };
   
-printProfileData(profileDataArgs);
+// printProfileData(profileDataArgs);
 
 // When using let and const inside a {} block it will only appolied to that block.
 // If you have a global variable and re-declare it inside the block, it will not modify the global defintion.
@@ -101,6 +101,61 @@ personObj.occupation = 'Developer';
 */
 
 
+// *** Code HTML Generator  *** //
+const fs = require('fs');
+const generatePage =  require('./src/page-template.js');
+
+// slice(2...) - means start at index of 3. node app args(2) ++
+const profileDataArgs = process.argv.slice(2, process.argv.length);
+
+// Assign input to variables - Traditional Way //
+// const userName = profileDataArgs[0];
+// const github = profileDataArgs[1];
+
+// *** ES6 feature - destructuring assignment *** //
+const [userName, github] = profileDataArgs
+
+
+//const generatePage = () => 'Name: Jane, Github: janehub';
+
+// Template Literals //
+
+//const generatePage = (userName, githubName) => `Name: ${userName}, Github: ${githubName}`;
+
+// Multi Line example  //
+
+// *** Moved to page-template.js *** //
+
+// const generatePage = (userName, github) => {
+//   return `
+//   <!DOCTYPE html> 
+//   <html lang="en"> 
+//   <head>
+//     <meta charset="UTF-8">
+//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+//     <title>Portfolio Demo</title>
+//   </head>
+
+//   <body>
+//     <h1>${userName}</h1>
+//     <h2><a href="https://github.com/${github}">Github</a></h2>
+//   </body>
+//   </html>
+//   `;
+// };
 
 
 
+//console.log(generatePage('Jane', 'janehub'));
+//console.log(userName, github);
+//console.log(generatePage(userName, github));
+
+
+// *** FS system *** //
+// writeFileSync is asynchronous, no need to wait for the file to complete to run more code
+fs.writeFileSync('index.html', generatePage(userName, github), err => {
+  if (err) throw err;
+
+  console.log('Portfolio complete! Check out index.html to see the output!');
+});
