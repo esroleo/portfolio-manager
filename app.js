@@ -106,6 +106,11 @@ personObj.occupation = 'Developer';
 
 // *** Code HTML Generator  *** //
 // *** Import library and modules *** //
+
+const fs = require('fs');
+const generatePage =  require('./src/page-template.js');
+
+
 const inquirer = require('inquirer');
 // Check that inquirer library is working.
 //console.log(inquirer);
@@ -240,11 +245,71 @@ Add a New Project
 };
 
 
-promptUser()
-  .then(promptProject)
-  .then(portfolioData => {
-    console.log(portfolioData);
-  });
+// *** Enable to test index.html generation *** //
+
+const mockData = 
+{
+  name: 'Lernantino',
+  github: 'lernantino',
+  confirmAbout: true,
+  about:
+     'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et.',
+  projects: [
+    {
+      name: 'Run Buddy',
+      description:
+        'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
+      languages: ['HTML', 'CSS'],
+      link: 'https://github.com/lernantino/run-buddy',
+      feature: true,
+      confirmAddProject: true
+    },
+    {
+      name: 'Taskinator',
+      description:
+        'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
+      languages: ['JavaScript', 'HTML', 'CSS'],
+      link: 'https://github.com/lernantino/taskinator',
+      feature: true,
+      confirmAddProject: true
+    },
+    {
+      name: 'Taskmaster Pro',
+      description:
+        'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
+      languages: ['JavaScript', 'jQuery', 'CSS', 'HTML', 'Bootstrap'],
+      link: 'https://github.com/lernantino/taskmaster-pro',
+      feature: false,
+      confirmAddProject: true
+    },
+    {
+      name: 'Robot Gladiators',
+      description:
+        'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque.',
+      languages: ['JavaScript'],
+      link: 'https://github.com/lernantino/robot-gladiators',
+      feature: false,
+      confirmAddProject: false
+    }
+  ]
+};
+
+
+const pageHTML = generatePage(mockData);
+
+// *** Enable up to here to test index.html generation *** //
+
+// promptUser()
+//   .then(promptProject)
+//   .then(portfolioData => {
+//     const pageHTML = generatePage(portfolioData);
+
+//     // fs.writeFile('./index.html', pageHTML, err => {
+//     //   if (err) throw new Error(err);
+
+//     //   console.log('Page created! Check out index.html in this directory to see it!');
+//     // });
+//   });
 
   
 
@@ -254,18 +319,16 @@ promptUser()
   
 
 
-// const fs = require('fs');
-// const generatePage =  require('./src/page-template.js');
 
 // const pageHTML = generatePage(userName, github);
 
 // // *** FS system *** //
 // // writeFileSync is asynchronous, no need to wait for the file to complete to run more code
-// fs.writeFileSync('index.html', pageHTML , err => {
-//   if (err) throw err;
+fs.writeFileSync('index.html', pageHTML , err => {
+  if (err) throw err;
 
-//   console.log('Portfolio complete! Check out index.html to see the output!');
-// });
+  console.log('Portfolio complete! Check out index.html to see the output!');
+});
 
 
 
